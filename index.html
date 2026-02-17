@@ -1,0 +1,226 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte RSU - 20 Escuelas UAC</title>
+    
+    <!-- Metadatos para mejor visibilidad en GitHub -->
+    <meta name="description" content="Reporte de Gestión RSU 2025-II - Universidad Andina del Cusco">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --azul-uac-oscuro: #1F3F6E;
+            --azul-uac-medio: #2C5D9F;
+            --azul-uac-claro: #27A9C9;
+            --blanco: #FFFFFF;
+            --gris-oscuro: #333333;
+            --gris-claro: #F3F4F6;
+            --azul-navy: #162F52;
+            --gris-medio: #6B7280;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--gris-claro); 
+            color: var(--gris-oscuro);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .hero-banner {
+            width: 100%;
+            background-color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 4px solid var(--azul-uac-claro);
+        }
+
+        .hero-banner img {
+            max-width: 90%;
+            height: auto;
+            max-height: 120px;
+            object-fit: contain;
+            padding: 1.5rem;
+        }
+
+        .header-uac {
+            background: linear-gradient(135deg, var(--azul-uac-oscuro) 0%, var(--azul-navy) 100%);
+            color: var(--blanco);
+        }
+
+        .card-uac {
+            background-color: var(--blanco);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 320px; /* Asegura un tamaño mínimo uniforme */
+        }
+
+        .card-uac:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--azul-uac-claro);
+        }
+
+        /* Ajuste para que los nombres no se corten */
+        .school-name {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            display: block;
+            line-height: 1.25;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Encabezado Institucional -->
+    <header class="max-w-7xl mx-auto md:mt-6 overflow-hidden md:rounded-t-2xl shadow-md">
+        <div class="hero-banner">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGkTWwWeUANXVDNgrEEpvdV_iTAuuTHar2eA&s" 
+                 alt="Logo Universidad Andina del Cusco">
+        </div>
+        
+        <div class="p-8 header-uac">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-6 text-center lg:text-left">
+                    <div class="hidden sm:flex bg-white/20 p-4 rounded-2xl backdrop-blur-sm">
+                        <i class="fas fa-university text-3xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight uppercase">Gestión RSU 2025-II</h1>
+                        <p class="text-sm md:text-base font-light opacity-90 mt-1">Dirección de Responsabilidad Social Universitaria - UAC</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/10 px-6 py-3 rounded-xl border border-white/20 text-center shadow-inner">
+                        <span class="block text-3xl font-bold">20</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-white/70">Escuelas</span>
+                    </div>
+                    <div class="bg-white px-6 py-3 rounded-xl text-center shadow-lg">
+                        <span class="block text-3xl font-bold" style="color: var(--azul-uac-oscuro);">100%</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest" style="color: var(--azul-uac-medio);">Aprobado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Panel de Escuelas -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="schoolsGrid">
+            <!-- Dinámico -->
+        </div>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="max-w-7xl mx-auto px-6 py-12 text-center border-t border-gray-200">
+        <p class="text-xs font-bold tracking-[0.2em] uppercase mb-6" style="color: var(--gris-medio);">
+            Universidad Andina del Cusco • Responsabilidad Social
+        </p>
+        <div class="flex justify-center gap-4">
+            <div class="w-12 h-1.5 rounded-full" style="background-color: var(--azul-uac-oscuro);"></div>
+            <div class="w-12 h-1.5 rounded-full" style="background-color: var(--azul-uac-medio);"></div>
+            <div class="w-12 h-1.5 rounded-full" style="background-color: var(--azul-uac-claro);"></div>
+        </div>
+    </footer>
+
+    <script>
+        const schools = [
+            { name: "Derecho", faculty: "Derecho y Cs. Políticas", icon: "fa-balance-scale", programs: 2, projects: 4, detail: "Derecho Ambiental, DD.HH. y Tributario." },
+            { name: "Ingeniería de Sistemas", faculty: "Ingeniería y Arquitectura", icon: "fa-laptop-code", programs: 4, projects: 2, detail: "Habilidades digitales e incubación tecnológica." },
+            { name: "Ingeniería Industrial", faculty: "Ingeniería y Arquitectura", icon: "fa-industry", programs: 1, projects: 6, detail: "Seguridad industrial y gestión productiva eficiente." },
+            { name: "Ingeniería Civil", faculty: "Ingeniería y Arquitectura", icon: "fa-hard-hat", programs: 3, projects: 4, detail: "Infraestructura segura y evaluación de viviendas." },
+            { name: "Ingeniería Ambiental", faculty: "Ingeniería y Arquitectura", icon: "fa-leaf", programs: 4, projects: 4, detail: "Gestión de recursos y remediación ambiental sostenible." },
+            { name: "Arquitectura", faculty: "Ingeniería y Arquitectura", icon: "fa-drafting-compass", programs: 1, projects: 4, detail: "Diseño participativo y urbanismo de impacto social." },
+            { name: "Medicina Humana", faculty: "Ciencias de la Salud", icon: "fa-user-md", programs: 2, projects: 2, detail: "Cultura Ambiental y Lucha contra la Anemia." },
+            { name: "Estomatología", faculty: "Ciencias de la Salud", icon: "fa-tooth", programs: 2, projects: 4, detail: "Salud Oral y Brigada Verde en zonas rurales." },
+            { name: "Psicología", faculty: "Ciencias de la Salud", icon: "fa-brain", programs: 2, projects: 3, detail: "Salud mental comunitaria y conducta infantil." },
+            { name: "Obstetricia", faculty: "Ciencias de la Salud", icon: "fa-baby-carriage", programs: 2, projects: 2, detail: "Salud Sexual Reproductiva y Residuos Sólidos." },
+            { name: "Enfermería", faculty: "Ciencias de la Salud", icon: "fa-user-nurse", programs: 0, projects: 3, detail: "Cuidados comunitarios e intervención primaria." },
+            { name: "Tecnología Médica", faculty: "Ciencias de la Salud", icon: "fa-microscope", programs: 1, projects: 3, detail: "Prevención músculo esquelética y salud del adulto mayor." },
+            { name: "Marketing", faculty: "Ciencias Económicas", icon: "fa-bullhorn", programs: 2, projects: 7, detail: "Expobranding y Marketing Digital para emprendedores." },
+            { name: "Negocios Internacionales", faculty: "Ciencias Económicas", icon: "fa-globe-americas", programs: 4, projects: 0, detail: "Gestión de comercio exterior y apoyo a la exportación." },
+            { name: "Contabilidad", faculty: "Ciencias Económicas", icon: "fa-calculator", programs: 5, projects: 3, detail: "Cultura tributaria y finanzas en el sector público." },
+            { name: "Economía", faculty: "Ciencias Económicas", icon: "fa-chart-pie", programs: 3, projects: 3, detail: "Proyectos productivos y educación financiera." },
+            { name: "Administración", faculty: "Ciencias Económicas", icon: "fa-briefcase", programs: 2, projects: 2, detail: "Gestión empresarial e incubación de negocios locales." },
+            { name: "Finanzas", faculty: "Ciencias Económicas", icon: "fa-coins", programs: 4, projects: 4, detail: "Inclusión financiera y análisis de mercados." },
+            { name: "Turismo", faculty: "Ciencias Económicas", icon: "fa-plane", programs: 0, projects: 0, detail: "Sin registros vigentes en el presente periodo." },
+            { name: "Educación", faculty: "Ciencias y Humanidades", icon: "fa-chalkboard-teacher", programs: 0, projects: 5, detail: "Pedagogía ambiental y programas de refuerzo escolar." }
+        ];
+
+        const grid = document.getElementById('schoolsGrid');
+
+        schools.forEach(school => {
+            const hasActivity = (school.programs + school.projects) > 0;
+            const statusColor = hasActivity ? 'var(--azul-uac-claro)' : '#9ca3af';
+
+            const card = document.createElement('div');
+            card.className = 'card-uac rounded-2xl p-6 shadow-sm';
+            card.innerHTML = `
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="w-14 h-14 flex items-center justify-center rounded-xl shadow-md shrink-0" 
+                         style="background-color: var(--azul-uac-oscuro); color: white;">
+                        <i class="fas ${school.icon} text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <h3 class="school-name font-bold text-slate-800 text-base mb-1">${school.name}</h3>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">${school.faculty}</p>
+                    </div>
+                </div>
+                
+                <div class="flex-grow space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+                            <span class="block text-2xl font-black" style="color: var(--azul-uac-oscuro);">${school.programs}</span>
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">Programas</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
+                            <span class="block text-2xl font-black" style="color: var(--azul-uac-medio);">${school.projects}</span>
+                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">Proyectos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-slate-100">
+                        <span class="text-[9px] font-black uppercase text-slate-300 block mb-2 tracking-widest">Enfoque de Impacto</span>
+                        <p class="text-sm text-slate-600 leading-normal font-medium">${school.detail}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-4 border-t border-slate-50 flex items-center justify-between">
+                    <div class="status-indicator" style="color: ${statusColor}">
+                        <span class="flex h-2.5 w-2.5 relative">
+                            ${hasActivity ? `<span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: ${statusColor}"></span>` : ''}
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background-color: ${statusColor}"></span>
+                        </span>
+                        <span>${hasActivity ? 'Activo' : 'Pendiente'}</span>
+                    </div>
+                    <button class="text-[10px] font-bold px-4 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all uppercase tracking-wider"
+                            style="color: var(--azul-uac-medio);">
+                        Detalles
+                    </button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
