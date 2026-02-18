@@ -62,7 +62,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            min-height: 320px; /* Asegura un tamaño mínimo uniforme */
+            min-height: 380px; /* Aumentado ligeramente para acomodar listas */
         }
 
         .card-uac:hover {
@@ -71,7 +71,6 @@
             border-color: var(--azul-uac-claro);
         }
 
-        /* Ajuste para que los nombres no se corten */
         .school-name {
             word-wrap: break-word;
             overflow-wrap: break-word;
@@ -85,6 +84,20 @@
             gap: 0.5rem;
             font-size: 0.75rem;
             font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Estilo para la lista de programas */
+        .program-list {
+            list-style-type: disc;
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        .program-list li {
+            font-size: 0.7rem;
+            line-height: 1.4;
+            color: #4b5563;
+            margin-bottom: 0.25rem;
             text-transform: uppercase;
         }
     </style>
@@ -145,75 +158,279 @@
 
     <script>
         const schools = [
-            { name: "Derecho", faculty: "Derecho y Cs. Políticas", icon: "fa-balance-scale", programs: 2, projects: 4, detail: "Derecho Ambiental, DD.HH. y Tributario." },
-            { name: "Ingeniería de Sistemas", faculty: "Ingeniería y Arquitectura", icon: "fa-laptop-code", programs: 4, projects: 2, detail: "Habilidades digitales e incubación tecnológica." },
-            { name: "Ingeniería Industrial", faculty: "Ingeniería y Arquitectura", icon: "fa-industry", programs: 1, projects: 6, detail: "Seguridad industrial y gestión productiva eficiente." },
-            { name: "Ingeniería Civil", faculty: "Ingeniería y Arquitectura", icon: "fa-hard-hat", programs: 3, projects: 4, detail: "Infraestructura segura y evaluación de viviendas." },
-            { name: "Ingeniería Ambiental", faculty: "Ingeniería y Arquitectura", icon: "fa-leaf", programs: 4, projects: 4, detail: "Gestión de recursos y remediación ambiental sostenible." },
-            { name: "Arquitectura", faculty: "Ingeniería y Arquitectura", icon: "fa-drafting-compass", programs: 1, projects: 4, detail: "Diseño participativo y urbanismo de impacto social." },
-            { name: "Medicina Humana", faculty: "Ciencias de la Salud", icon: "fa-user-md", programs: 2, projects: 2, detail: "Cultura Ambiental y Lucha contra la Anemia." },
-            { name: "Estomatología", faculty: "Ciencias de la Salud", icon: "fa-tooth", programs: 2, projects: 4, detail: "Salud Oral y Brigada Verde en zonas rurales." },
-            { name: "Psicología", faculty: "Ciencias de la Salud", icon: "fa-brain", programs: 2, projects: 3, detail: "Salud mental comunitaria y conducta infantil." },
-            { name: "Obstetricia", faculty: "Ciencias de la Salud", icon: "fa-baby-carriage", programs: 2, projects: 2, detail: "Salud Sexual Reproductiva y Residuos Sólidos." },
-            { name: "Enfermería", faculty: "Ciencias de la Salud", icon: "fa-user-nurse", programs: 0, projects: 3, detail: "Cuidados comunitarios e intervención primaria." },
-            { name: "Tecnología Médica", faculty: "Ciencias de la Salud", icon: "fa-microscope", programs: 1, projects: 3, detail: "Prevención músculo esquelética y salud del adulto mayor." },
-            { name: "Marketing", faculty: "Ciencias Económicas", icon: "fa-bullhorn", programs: 2, projects: 7, detail: "Expobranding y Marketing Digital para emprendedores." },
-            { name: "Negocios Internacionales", faculty: "Ciencias Económicas", icon: "fa-globe-americas", programs: 4, projects: 0, detail: "Gestión de comercio exterior y apoyo a la exportación." },
-            { name: "Contabilidad", faculty: "Ciencias Económicas", icon: "fa-calculator", programs: 5, projects: 3, detail: "Cultura tributaria y finanzas en el sector público." },
-            { name: "Economía", faculty: "Ciencias Económicas", icon: "fa-chart-pie", programs: 3, projects: 3, detail: "Proyectos productivos y educación financiera." },
-            { name: "Administración", faculty: "Ciencias Económicas", icon: "fa-briefcase", programs: 2, projects: 2, detail: "Gestión empresarial e incubación de negocios locales." },
-            { name: "Finanzas", faculty: "Ciencias Económicas", icon: "fa-coins", programs: 4, projects: 4, detail: "Inclusión financiera y análisis de mercados." },
-            { name: "Turismo", faculty: "Ciencias Económicas", icon: "fa-plane", programs: 0, projects: 0, detail: "Sin registros vigentes en el presente periodo." },
-            { name: "Educación", faculty: "Ciencias y Humanidades", icon: "fa-chalkboard-teacher", programs: 0, projects: 5, detail: "Pedagogía ambiental y programas de refuerzo escolar." }
+            { 
+                name: "Derecho", 
+                faculty: "Derecho y Cs. Políticas", 
+                icon: "fa-balance-scale", 
+                projects: 4, 
+                programsList: [
+                    "RSU en Derecho Ambiental", 
+                    "RSU en Derechos Humanos", 
+                    "Derecho Tributario"
+                ]
+            },
+            { 
+                name: "Ingeniería de Sistemas", 
+                faculty: "Ingeniería y Arquitectura", 
+                icon: "fa-laptop-code", 
+                projects: 2, 
+                programsList: [
+                    "Fortalecimiento de Habilidades Digitales en la Población Cusqueña",
+                    "Incubación Peer to Peer: Conectando Emprendedores",
+                    "Impulso al Desarrollo de Emprendimientos Regionales",
+                    "Incubación Emprende Andina en Comunidad Universitaria"
+                ]
+            },
+            { 
+                name: "Ingeniería Industrial", 
+                faculty: "Ingeniería y Arquitectura", 
+                icon: "fa-industry", 
+                projects: 6, 
+                programsList: [
+                    "RSU Cadena de Suministros",
+                    "RSU Tecnología Agroindustrial",
+                    "RSU Segregación de Residuos Sólidos",
+                    "Sensibilización Ecoeficiencia y Reforestación UAC"
+                ]
+            },
+            { 
+                name: "Ingeniería Civil", 
+                faculty: "Ingeniería y Arquitectura", 
+                icon: "fa-hard-hat", 
+                projects: 4, 
+                programsList: [
+                    "Mejoramiento servicios educativos IE 50708 Picol",
+                    "Mejoramiento servicios ONG Corazones para Perú",
+                    "Extensión Universitaria"
+                ]
+            },
+            { 
+                name: "Ingeniería Ambiental", 
+                faculty: "Ingeniería y Arquitectura", 
+                icon: "fa-leaf", 
+                projects: 4, 
+                programsList: [
+                    "Capacitación y Sensibilización Ambiental",
+                    "Manejo de Residuos Sólidos en la UAC",
+                    "Buenas Prácticas Ambientales",
+                    "Extensión Universitaria y Divulgación Científica"
+                ]
+            },
+            { 
+                name: "Arquitectura", 
+                faculty: "Ingeniería y Arquitectura", 
+                icon: "fa-drafting-compass", 
+                projects: 4, 
+                programsList: [
+                    "Historia e intervención en el patrimonio edificado"
+                ]
+            },
+            { 
+                name: "Medicina Humana", 
+                faculty: "Ciencias de la Salud", 
+                icon: "fa-user-md", 
+                projects: 2, 
+                programsList: [
+                    "Programa Cultura Ambiental en la UAC",
+                    "Programa Integral de RSU de la FCS"
+                ]
+            },
+            { 
+                name: "Estomatología", 
+                faculty: "Ciencias de la Salud", 
+                icon: "fa-tooth", 
+                projects: 4, 
+                programsList: [
+                    "RSU en Gestión Ambiental",
+                    "RSU en Salud Oral"
+                ]
+            },
+            { 
+                name: "Psicología", 
+                faculty: "Ciencias de la Salud", 
+                icon: "fa-brain", 
+                projects: 3, 
+                programsList: [
+                    "Programa Integral RSU en I.E. N° 50905 San Jerónimo",
+                    "Programa Integral RSU de la FCSA de la UAC"
+                ]
+            },
+            { 
+                name: "Obstetricia", 
+                faculty: "Ciencias de la Salud", 
+                icon: "fa-baby-carriage", 
+                projects: 2, 
+                programsList: [
+                    "Programa Integral RSU en I.E. N° 50905 San Jerónimo",
+                    "Salud Sexual Reproductiva y Ambiente en Fe y Alegría N°21"
+                ]
+            },
+            { 
+                name: "Enfermería", 
+                faculty: "Ciencias de la Salud", 
+                icon: "fa-user-nurse", 
+                projects: 3, 
+                programsList: [
+                    "Promoción de la Salud",
+                    "Prevención de Enfermedades",
+                    "Atención en Poblaciones Vulnerables"
+                ]
+            },
+            { 
+                name: "Tecnología Médica", 
+                faculty: "Ciencias de la Salud", 
+                icon: "fa-microscope", 
+                projects: 3, 
+                programsList: [
+                    "Programa de la Facultad de Ciencias de la Salud"
+                ]
+            },
+            { 
+                name: "Marketing", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-bullhorn", 
+                projects: 7, 
+                programsList: [
+                    "Programa de Gestión Ambiental",
+                    "Consultoría Integral en Marketing",
+                    "RSU y Proyección Social en E.P. Marketing"
+                ]
+            },
+            { 
+                name: "Negocios Internacionales", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-globe-americas", 
+                projects: 0, 
+                programsList: [
+                    "Gestión Organizacional en Huaro",
+                    "Asesoría a Asociaciones Productoras y Microempresas",
+                    "Campaña de Reforestación San Jerónimo",
+                    "Taller RSU para Docentes y Administrativos"
+                ]
+            },
+            { 
+                name: "Contabilidad", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-calculator", 
+                projects: 3, 
+                programsList: [
+                    "Finanzas Empresariales",
+                    "Educación Empresarial",
+                    "Gestión Ambiental - DIRSEU",
+                    "Núcleo de Apoyo Fiscal NAF",
+                    "Apoyo Tributación Municipal PAM"
+                ]
+            },
+            { 
+                name: "Economía", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-chart-pie", 
+                projects: 3, 
+                programsList: [
+                    "RSU en Desarrollo Sostenible",
+                    "Consultoría Económica Financiera",
+                    "Gestión Pública"
+                ]
+            },
+            { 
+                name: "Administración", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-briefcase", 
+                projects: 2, 
+                programsList: [
+                    "Gestión Organizacional en Caycay - Quispicanchis",
+                    "Programa de Reforestación 2024-II"
+                ]
+            },
+            { 
+                name: "Finanzas", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-coins", 
+                projects: 4, 
+                programsList: [
+                    "Educación Financiera Secundaria",
+                    "Capacitación Emprendedores Pucyura-Anta",
+                    "Educación Financiera MYPE San Sebastián/Jerónimo",
+                    "Programa Integral de Gestión Ambiental"
+                ]
+            },
+            { 
+                name: "Turismo", 
+                faculty: "Ciencias Económicas", 
+                icon: "fa-plane", 
+                projects: 0, 
+                programsList: []
+            },
+            { 
+                name: "Educación", 
+                faculty: "Ciencias y Humanidades", 
+                icon: "fa-chalkboard-teacher", 
+                projects: 5, 
+                programsList: []
+            }
         ];
+
+        // Calcular conteo de programas dinámicamente
+        const processedSchools = schools.map(school => ({
+            ...school,
+            programs: school.programsList.length
+        }));
 
         const grid = document.getElementById('schoolsGrid');
 
-        schools.forEach(school => {
+        processedSchools.forEach(school => {
             const hasActivity = (school.programs + school.projects) > 0;
             const statusColor = hasActivity ? 'var(--azul-uac-claro)' : '#9ca3af';
 
             const card = document.createElement('div');
             card.className = 'card-uac rounded-2xl p-6 shadow-sm';
+            
+            // Generar lista HTML de programas
+            const programsHTML = school.programsList.length > 0 
+                ? `<ul class="program-list">
+                    ${school.programsList.map(prog => `<li>${prog}</li>`).join('')}
+                   </ul>`
+                : '<p class="text-xs text-slate-400 italic mt-2">Sin programas registrados</p>';
+
             card.innerHTML = `
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="w-14 h-14 flex items-center justify-center rounded-xl shadow-md shrink-0" 
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-xl shadow-md shrink-0" 
                          style="background-color: var(--azul-uac-oscuro); color: white;">
-                        <i class="fas ${school.icon} text-xl"></i>
+                        <i class="fas ${school.icon} text-lg"></i>
                     </div>
                     <div class="flex flex-col">
-                        <h3 class="school-name font-bold text-slate-800 text-base mb-1">${school.name}</h3>
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">${school.faculty}</p>
+                        <h3 class="school-name font-bold text-slate-800 text-sm mb-1 leading-tight">${school.name}</h3>
+                        <p class="text-[9px] font-bold uppercase tracking-widest text-slate-400">${school.faculty}</p>
                     </div>
                 </div>
                 
-                <div class="flex-grow space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-                            <span class="block text-2xl font-black" style="color: var(--azul-uac-oscuro);">${school.programs}</span>
-                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">Programas</span>
+                <div class="flex-grow flex flex-col">
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
+                            <span class="block text-xl font-black" style="color: var(--azul-uac-oscuro);">${school.programs}</span>
+                            <span class="text-[8px] uppercase font-bold text-slate-400 tracking-tighter">Programas</span>
                         </div>
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-                            <span class="block text-2xl font-black" style="color: var(--azul-uac-medio);">${school.projects}</span>
-                            <span class="text-[9px] uppercase font-bold text-slate-400 tracking-tighter">Proyectos</span>
+                        <div class="bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
+                            <span class="block text-xl font-black" style="color: var(--azul-uac-medio);">${school.projects}</span>
+                            <span class="text-[8px] uppercase font-bold text-slate-400 tracking-tighter">Proyectos</span>
                         </div>
                     </div>
                     
-                    <div class="pt-4 border-t border-slate-100">
-                        <span class="text-[9px] font-black uppercase text-slate-300 block mb-2 tracking-widest">Enfoque de Impacto</span>
-                        <p class="text-sm text-slate-600 leading-normal font-medium">${school.detail}</p>
+                    <div class="pt-3 border-t border-slate-100 flex-grow">
+                        <span class="text-[9px] font-black uppercase text-slate-300 block mb-1 tracking-widest">Programas RSU</span>
+                        ${programsHTML}
                     </div>
                 </div>
                 
-                <div class="mt-8 pt-4 border-t border-slate-50 flex items-center justify-between">
+                <div class="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between">
                     <div class="status-indicator" style="color: ${statusColor}">
-                        <span class="flex h-2.5 w-2.5 relative">
+                        <span class="flex h-2 w-2 relative">
                             ${hasActivity ? `<span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: ${statusColor}"></span>` : ''}
-                            <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background-color: ${statusColor}"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2" style="background-color: ${statusColor}"></span>
                         </span>
-                        <span>${hasActivity ? 'Activo' : 'Pendiente'}</span>
+                        <span class="text-[9px] ml-1">${hasActivity ? 'Activo' : 'Pendiente'}</span>
                     </div>
-                    <button class="text-[10px] font-bold px-4 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all uppercase tracking-wider"
+                    <button class="text-[9px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all uppercase tracking-wider"
                             style="color: var(--azul-uac-medio);">
                         Detalles
                     </button>
