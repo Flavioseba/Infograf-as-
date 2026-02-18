@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte RSU - 20 Escuelas UAC</title>
     
-    <!-- Metadatos para mejor visibilidad en GitHub -->
     <meta name="description" content="Reporte de Gestión RSU 2025-II - Universidad Andina del Cusco">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -101,6 +100,85 @@
             margin-bottom: 0.25rem;
             text-transform: uppercase;
         }
+
+        /* Estilos para el Botón Flotante y Modal QR */
+        .fab-qr {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--azul-uac-oscuro);
+            color: white;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 50;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid white;
+        }
+
+        .fab-qr:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: var(--azul-uac-medio);
+        }
+
+        .qr-modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .qr-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .qr-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            max-width: 90%;
+            width: 320px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .qr-modal.active .qr-content {
+            transform: scale(1);
+        }
+
+        .close-qr {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gris-claro);
+            color: var(--gris-oscuro);
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .close-qr:hover {
+            background: #e2e8f0;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -141,11 +219,8 @@
     <!-- Panel de Escuelas -->
     <main class="max-w-7xl mx-auto px-4 py-12">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="schoolsGrid">
-            <!-- Dinámico -->
         </div>
     </main>
-
-    <!-- Pie de Página -->
     <footer class="max-w-7xl mx-auto px-6 py-12 text-center border-t border-gray-200">
         <p class="text-xs font-bold tracking-[0.2em] uppercase mb-6" style="color: var(--gris-medio);">
             Universidad Andina del Cusco • Responsabilidad Social
@@ -157,13 +232,35 @@
         </div>
     </footer>
 
+    <!-- Botón Flotante QR -->
+    <button class="fab-qr" onclick="toggleQRModal()" aria-label="Ver código QR">
+        <i class="fas fa-qrcode text-xl"></i>
+    </button>
+
+    <!-- Modal QR -->
+    <div id="qrModal" class="qr-modal" onclick="closeQRModalOnOutside(event)">
+        <div class="qr-content">
+            <button class="close-qr" onclick="toggleQRModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-lg font-bold text-slate-800 mb-4 uppercase tracking-tight">Acceso Rápido</h3>
+            <div class="bg-gray-100 p-4 rounded-xl border border-gray-200 mb-4">
+                <img src="./qr-code.png" 
+                     alt="Código QR" 
+                     class="w-full h-auto rounded-lg"
+                     onerror="this.src='https://via.placeholder.com/300x300?text=QR+No+Encontrado'">
+            </div>
+            <p class="text-xs text-slate-500 font-medium">Escanea para acceder a la documentación completa</p>
+        </div>
+    </div>
+
     <script>
         const schools = [
             { 
                 name: "Derecho", 
                 faculty: "Derecho y Cs. Políticas", 
                 icon: "fa-balance-scale", 
-                projects: 5,
+                projects: 5, 
                 population: "Comunidad Universitaria, Comunidad externa no identificada",
                 programsList: [
                     "RSU en Derecho Ambiental", 
@@ -258,7 +355,7 @@
                 name: "Psicología", 
                 faculty: "Ciencias de la Salud", 
                 icon: "fa-brain", 
-                projects: 5, 
+                projects: 5,
                 population: "I.E. N° 657 “Nuestra Señora Del Rosario” Del Distrito De Yucay 2025 -I, I.E. N° 50905 “Nuestra Señora De Las Mercedes\" De San Jerónimo – Cusco, 2025",
                 programsList: [
                     "Programa Integral RSU en I.E. N° 50905 San Jerónimo",
@@ -478,6 +575,18 @@
             `;
             grid.appendChild(card);
         });
+
+        // Funciones para el Modal QR
+        function toggleQRModal() {
+            const modal = document.getElementById('qrModal');
+            modal.classList.toggle('active');
+        }
+
+        function closeQRModalOnOutside(event) {
+            if (event.target.id === 'qrModal') {
+                toggleQRModal();
+            }
+        }
     </script>
 </body>
 </html>
