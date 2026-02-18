@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte RSU - 20 Escuelas UAC</title>
     
+    <!-- Metadatos para mejor visibilidad en GitHub -->
     <meta name="description" content="Reporte de Gestión RSU 2025-II - Universidad Andina del Cusco">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,6 +24,8 @@
             --azul-navy: #162F52;
             --gris-medio: #6B7280;
             --verde-poblacion: #059669;
+            --pendiente: #f59e0b; /* Color para estado pendiente */
+            --rojo-alerta: #ef4444;
         }
 
         body { 
@@ -207,8 +210,9 @@
                         <span class="block text-3xl font-bold">20</span>
                         <span class="text-[10px] uppercase font-bold tracking-widest text-white/70">Escuelas</span>
                     </div>
+                    <!-- PORCENTAJE AJUSTADO: 18 de 20 escuelas (90%) -->
                     <div class="bg-white px-6 py-3 rounded-xl text-center shadow-lg">
-                        <span class="block text-3xl font-bold" style="color: var(--azul-uac-oscuro);">100%</span>
+                        <span class="block text-3xl font-bold" style="color: var(--azul-uac-oscuro);">90%</span>
                         <span class="text-[10px] uppercase font-bold tracking-widest" style="color: var(--azul-uac-medio);">Aprobado</span>
                     </div>
                 </div>
@@ -219,8 +223,11 @@
     <!-- Panel de Escuelas -->
     <main class="max-w-7xl mx-auto px-4 py-12">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="schoolsGrid">
+            <!-- Dinámico -->
         </div>
     </main>
+
+    <!-- Pie de Página -->
     <footer class="max-w-7xl mx-auto px-6 py-12 text-center border-t border-gray-200">
         <p class="text-xs font-bold tracking-[0.2em] uppercase mb-6" style="color: var(--gris-medio);">
             Universidad Andina del Cusco • Responsabilidad Social
@@ -245,7 +252,7 @@
             </button>
             <h3 class="text-lg font-bold text-slate-800 mb-4 uppercase tracking-tight">Acceso Rápido</h3>
             <div class="bg-gray-100 p-4 rounded-xl border border-gray-200 mb-4">
-                <img src="./qr-code.png.jpeg" 
+                <img src="./qr-code.png" 
                      alt="Código QR" 
                      class="w-full h-auto rounded-lg"
                      onerror="this.src='https://via.placeholder.com/300x300?text=QR+No+Encontrado'">
@@ -260,7 +267,7 @@
                 name: "Derecho", 
                 faculty: "Derecho y Cs. Políticas", 
                 icon: "fa-balance-scale", 
-                projects: 5, 
+                projects: 5,
                 population: "Comunidad Universitaria, Comunidad externa no identificada",
                 programsList: [
                     "RSU en Derecho Ambiental", 
@@ -298,7 +305,9 @@
                 name: "Ingeniería Civil", 
                 faculty: "Ingeniería y Arquitectura", 
                 icon: "fa-hard-hat", 
-                projects: 4, 
+                projects: 4,
+                // STATUS MANUAL: PENDIENTE
+                manualStatus: "PENDIENTE",
                 population: "Institución Educativa I.E. PICCOL N°. 50708 San Jerónimo de Cusco, Centro de Atención Residencial MUNAYCHA - Institución CORAZONES PARA PERÚ de la Provincia de Urubamba",
                 programsList: [
                     "Mejoramiento servicios educativos IE 50708 Picol",
@@ -475,14 +484,18 @@
                 faculty: "Ciencias Económicas", 
                 icon: "fa-plane", 
                 projects: 0, 
+                manualStatus: "PENDIENTE", 
                 population: "Adultos Mayores del Distrito de San Jerónimo",
                 programsList: []
+              
             },
             { 
                 name: "Educación", 
                 faculty: "Ciencias y Humanidades", 
                 icon: "fa-chalkboard-teacher", 
-                projects: 5, 
+                projects: 5,
+                // STATUS MANUAL: PENDIENTE
+                manualStatus: "PENDIENTE", 
                 population: "Institución Educativa I.E. PICCOL N°. 50708 San Jerónimo de Cusco",
                 programsList: []
             }
@@ -497,8 +510,27 @@
         const grid = document.getElementById('schoolsGrid');
 
         processedSchools.forEach(school => {
-            const hasActivity = (school.programs + school.projects) > 0;
-            const statusColor = hasActivity ? 'var(--azul-uac-claro)' : '#9ca3af';
+            // Lógica para determinar el estado:
+            // 1. Si tiene "manualStatus", usar ese (para Civil y Educación).
+            // 2. Si no, calcular si tiene actividad (programas + proyectos > 0).
+            let isPending = false;
+            let statusText = 'Pendiente';
+            let statusColor = '#9ca3af'; // Gris por defecto
+
+            if (school.manualStatus === "PENDIENTE") {
+                isPending = true;
+                statusText = 'Plan Pendiente';
+                statusColor = 'var(--pendiente)'; // Amarillo/Naranja
+            } else {
+                const hasActivity = (school.programs + school.projects) > 0;
+                if (hasActivity) {
+                    statusText = 'Activo';
+                    statusColor = 'var(--azul-uac-claro)'; // Azul activo
+                } else {
+                    statusText = 'Sin Registro'; // O Pendiente
+                    statusColor = '#9ca3af';
+                }
+            }
 
             // Lógica para mostrar u ocultar la sección de población
             const populationSection = (school.population && school.population.trim() !== "") ? `
@@ -562,10 +594,10 @@
                 <div class="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between">
                     <div class="status-indicator" style="color: ${statusColor}">
                         <span class="flex h-2 w-2 relative">
-                            ${hasActivity ? `<span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: ${statusColor}"></span>` : ''}
+                            ${(statusText === 'Activo' || statusText === 'Plan Pendiente') ? `<span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: ${statusColor}"></span>` : ''}
                             <span class="relative inline-flex rounded-full h-2 w-2" style="background-color: ${statusColor}"></span>
                         </span>
-                        <span class="text-[9px] ml-1">${hasActivity ? 'Activo' : 'Pendiente'}</span>
+                        <span class="text-[9px] ml-1">${statusText}</span>
                     </div>
                     <button class="text-[9px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all uppercase tracking-wider"
                             style="color: var(--azul-uac-medio);">
